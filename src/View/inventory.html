@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <!-- Bootstrap CSS -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: beige;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">I.M.S</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../View/index.html">Home<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="../View/inventory.html">Inventory<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="../View/addEmployee.html">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../View/inventoryView.html">Inventory View<span
+                            class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../View/employeeView.html">Employee View<span
+                            class="sr-only"></span></a>
+                </li>
+            </ul>
+   
+        </div>
+      </nav>
+      <div class="container mt-5">
+        <div class="card custom-card" style="max-width: 800px; margin: auto;  margin-top: 100px;">
+            <div class="card-body">
+                <h1 class="card-title text-center" style="margin-top: 30px;">Inventory Management</h1>
+                <p class="card-text text-center">Employee Details</p>
+                <form id="companyForm" class="w-100" style="margin-top: 50px;">
+                    <div class="row mb-4">
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="companyName" class="form-label" style="font-size: 22px; font-weight: 400;">Company Name</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="companyName" placeholder="Enter Company Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="companyId" class="form-label" style="font-size: 22px; font-weight: 400;">Company ID</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="companyId" placeholder="Enter Company ID" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="storageName" class="form-label" style="font-size: 22px; font-weight: 400;">Storage Facility Name</label>
+                                <input type="text" class="form-control form-control-lg"  style="width: 250px;"id="storageName" placeholder="Enter Storage Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="storageId" class="form-label" style="font-size: 22px; font-weight: 400;">Storage ID</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;"id="storageId" placeholder="Enter Storage ID" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="storageAddress" class="form-label" style="font-size: 22px; font-weight: 400;">Storage Address</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;"id="storageAddress" placeholder="Enter Storage Address" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="storageFacilities" class="form-label" style="font-size: 22px; font-weight: 400;">Storage Facilities</label>
+                                <input type="number" class="form-control form-control-lg" style="width: 250px;"id="storageFacilities" placeholder="Enter Storage Facilities" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="productName" class="form-label" style="font-size: 22px; font-weight: 400;">Product Name</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="productName" placeholder="Enter Product Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="productId" class="form-label" style="font-size: 22px; font-weight: 400;">Product ID</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="productId" placeholder="Enter Product ID" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="productPrice" class="form-label" style="font-size: 22px; font-weight: 400;">Product Price</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="productPrice" placeholder="Enter Product Price" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group text-center">
+                                <label for="productAmount" class="form-label" style="font-size: 22px; font-weight: 400;">Product Amount</label>
+                                <input type="text" class="form-control form-control-lg" style="width: 250px;" id="productAmount" placeholder="Enter Product Amount" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6  d-flex justify-content-center">
+                            <div class="form-group ">
+                                <label for="expirationDate" class="form-label" style="font-size: 22px; font-weight: 400;">Expiration Date</label>
+                                <input type="date" class="form-control form-control-lg" style="width: 180px;" id="expirationDate" placeholder="month/day/year" required>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="../Controller/main.js" defer></script>
+</body>
+</html>
