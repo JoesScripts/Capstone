@@ -11,6 +11,20 @@ app.use(cors({
   origin: '*'
 }));
 
+// Get all users
+app.get('/users', async (req, res) => {
+  try {
+    // Retrieve all employees from the database
+    const [users] = await pool.query('SELECT * FROM users');
+    
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
+
 // Get all employees
 app.get('/employee', async (req, res) => {
   try {

@@ -35,7 +35,7 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="../View/inventory.html">Inventory<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="../View/addEmployee.html">Employee</a>
                 </li>
                 <li class="nav-item">
@@ -46,7 +46,7 @@
                     <a class="nav-link" href="../View/employeeView.html">Employee View<span
                             class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="../View/sales.html">Sales</a>
                 </li>
             </ul>
@@ -56,25 +56,25 @@
     <div class="container mt-5">
         <div class="card custom-card" style="max-width: 800px; margin: auto; margin-top: 100px;">
             <div class="card-body">
-                <h1 class="card-title text-center">Employee Management</h1>
-                <p class="card-text text-center">Employee Details</p>
-                <form id="employeeForm" class="w-100" style="margin-top: 20px;">
+                <h1 class="card-title text-center">Sales Management</h1>
+                <p class="card-text text-center">Sell a product</p>
+                <form id="salesForm" class="w-100" style="margin-top: 20px;">
                     <!-- First Row -->
                     <div class="row mb-4">
                         <div class="col-md-6  d-flex justify-content-center">
                             <div class="form-group text-center">
-                                <label for="employeeName" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Employee Name</label>
-                                <input type="text" class="form-control form-control-lg" id="employeeName"
-                                    placeholder="Enter employee name" style="width: 250px;">
+                                <label for="productId" class="form-label"
+                                    style="font-size: 22px; font-weight: 400;">Product Id</label>
+                                <input type="text" class="form-control form-control-lg" id="productId"
+                                    placeholder="Enter product id" style="width: 250px;">
                             </div>
                         </div>
                         <div class="col-md-6  d-flex justify-content-center">
                             <div class="form-group text-center">
-                                <label for="employeeId" class="form-label "
-                                    style="font-size: 22px; font-weight: 400;">Employee ID</label>
-                                <input type="text" class="form-control form-control-lg" id="employeeId"
-                                    placeholder="Enter employee ID" style="width: 250px;">
+                                <label for="productAmount" class="form-label "
+                                    style="font-size: 22px; font-weight: 400;">Product amount</label>
+                                <input type="number" class="form-control form-control-lg" id="productAmount"
+                                    placeholder="Enter amount" style="width: 250px;">
                             </div>
                         </div>
                     </div>
@@ -84,18 +84,18 @@
                     <div class="row mb-4">
                         <div class="col-md-6  d-flex justify-content-center">
                             <div class="form-group text-center">
-                                <label for="employeeSalary" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Employee Salary</label>
-                                <input type="text" class="form-control form-control-lg" id="employeeSalary"
-                                    placeholder="Enter employee salary" style="width: 250px;">
+                                <label for="retailerPrice" class="form-label"
+                                    style="font-size: 22px; font-weight: 400;">Retailer price </label>
+                                <input type="number" class="form-control form-control-lg" id="retailerPrice"
+                                    placeholder="Enter retailer price" style="width: 250px;">
                             </div>
                         </div>
                         <div class="col-md-6  d-flex justify-content-center">
                             <div class="form-group text-center">
-                                <label for="employeeSales" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Employee Sales $</label>
-                                <input type="text" class="form-control form-control-lg" id="employeeSales"
-                                    placeholder="Enter employee sales" style="width: 250px;">
+                                <label for="salesPerson" class="form-label"
+                                    style="font-size: 22px; font-weight: 400;">Sales person</label>
+                                <input type="text" class="form-control form-control-lg" id="salesPerson"
+                                    placeholder="Enter employee id" style="width: 250px;">
                             </div>
                         </div>
                     </div>
@@ -112,26 +112,10 @@
                         </div>
                         <div class="col-md-6  d-flex justify-content-center">
                             <div class="form-group text-center">
-                                <label for="storageName" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Storage Facility Name</label>
-                                <input type="text" class="form-control form-control-lg" id="storageName"
-                                    placeholder="Enter facility name" style="width: 250px;">
-                            </div>
-                        </div>
-                        <div class="col-md-6  d-flex justify-content-center">
-                            <div class="form-group text-center">
-                                <label for="productSold" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Product sold:</label>
-                                <input type="text" class="form-control form-control-lg" id="productSold"
-                                    placeholder="Enter product name" style="width: 250px;">
-                            </div>
-                        </div>
-                        <div class="col-md-6  d-flex justify-content-center">
-                            <div class="form-group text-center">
-                                <label for="productAmountSold" class="form-label"
-                                    style="font-size: 22px; font-weight: 400;">Product amount:</label>
-                                <input type="number" class="form-control form-control-lg" id="productAmountSold"
-                                    placeholder="Enter amount sold" style="width: 250px;">
+                                <label for="storageId" class="form-label"
+                                    style="font-size: 22px; font-weight: 400;">Storage id</label>
+                                <input type="text" class="form-control form-control-lg" id="storageId"
+                                    placeholder="Enter storage id" style="width: 250px;">
                             </div>
                         </div>
                     </div>
@@ -145,7 +129,7 @@
             </div>
         </div>
     </div>
-    <script type="module" src="../Controller/addEmployee.js" defer></script>
+    <script type="module" src="../Controller/sales.js" defer></script>
 </body>
 
 </html>

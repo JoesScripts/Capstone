@@ -22,17 +22,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../View/index.html">Home<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item " style="display: none;" id="dashboardInventory">
                     <a class="nav-link" href="../View/inventory.html">Inventory<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item " style="display: none;" id="dashboardEmployee">
                     <a class="nav-link" href="../View/addEmployee.html">Employee</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;" id="dashboardInventoryView">
                     <a class="nav-link" href="../View/inventoryView.html">Inventory View<span
                             class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;" id="dashboardEmployeeView">
                     <a class="nav-link" href="../View/employeeView.html">Employee View<span
                             class="sr-only"></span></a>
                 </li>
@@ -52,21 +52,21 @@
                 <h1 class="card-title" style="margin-top: 20px;">Login</h1>
                 <!-- <p class="card-text">Employee Details</p> -->
    <div class="container mt-2" >
-    <form id="signInForm" class="w-100" style="margin-top: 40px;">
+    <form id="loginForm" class="w-100" style="margin-top: 40px;">
 
         <div class="col-md-12">
             <div class="form-group">
                 <label for="userEmail" class="form-label"style="font-size: 22px; font-weight: 400;">Email</label>
-                <input type="email" class="form-control form-control-lg" id="userEmail"
-                    placeholder="Enter Company ID" required>
+                <input type="email" class="form-control form-control-lg" id="userEmail" placeholder="Enter email" required autocomplete="current-password"
+                placeholder="Enter Company ID" required>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
                 <label for="userPassword" class="form-label" style="font-size: 22px; font-weight: 400;">Password</label>
-                <input type="password" class="form-control form-control-lg" id="userPassword"
-                    placeholder="Enter Storage Name" required>
+                <input type="password" class="form-control form-control-lg" id="userPassword" placeholder="Enter Password" required autocomplete="current-password"
+                placeholder="Enter Storage Name" required>
             </div>
 
 
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <script type="module" src="../src/main.js" defer></script>
+    <script type="module" src="../Controller/signin.js" defer></script>
 </body>
 
 </html>
