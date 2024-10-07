@@ -12,7 +12,8 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
     };
 
     try {
-        const response = await fetch('http://localhost:3000/signup', {
+        // Send the user data to the backend to register
+        const response = await fetch('http://localhost:3000/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,8 +21,13 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
             body: JSON.stringify(user)
         });
 
-        const result = await response.json();
-        alert(result.message);
+        if (response.ok) {
+            const result = await response.json();
+            alert(result.message); // Show success message
+            window.location.href = 'login.html'; // Redirect to login page after successful sign-up
+        } else {
+            alert('Sign-up failed');
+        }
     } catch (error) {
         console.error('Error:', error);
     }

@@ -10,21 +10,22 @@ app.use(express.json());
 app.use(cors({
   origin: '*'
 }));
-
-// Get all users
-app.get('/users', async (req, res) => {
-  try {
-    // Retrieve all employees from the database
-    const [users] = await pool.query('SELECT * FROM users');
-    
-    res.status(200).json(users);
-  } catch (err) {
-    console.error('Error fetching user:', err);
-    res.status(500).json({ error: 'Failed to fetch user' });
-  }
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
-
+app.get('/sales', async (req, res) => {
+  try {
+    // Retrieve all users from the database
+    const [sales] = await pool.query('SELECT * FROM sales');
+    
+    res.status(200).json(sales);
+  } catch (err) {
+    console.error('Error fetching sales:', err);
+    res.status(500).json({ error: 'Failed to fetch sales' });
+  }
+});
 // Get all employees
 app.get('/employee', async (req, res) => {
   try {
@@ -35,6 +36,17 @@ app.get('/employee', async (req, res) => {
   } catch (err) {
     console.error('Error fetching employees:', err);
     res.status(500).json({ error: 'Failed to fetch employees' });
+  }
+});
+app.get('/company', async (req, res) => {
+  try {
+    // Retrieve all employees from the database
+    const [company] = await pool.query('SELECT * FROM company');
+    
+    res.status(200).json(company);
+  } catch (err) {
+    console.error('Error fetching employees:', err);
+    res.status(500).json({ error: 'Failed to fetch company' });
   }
 });
 
@@ -56,7 +68,23 @@ app.get('/employee/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch employee' });
   }
 });
+app.get('/product/:id', async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    // Retrieve a single employee by ID
+    const [product] = await pool.query('SELECT * FROM product WHERE product_id = ?', [id]);
+
+    if (product.length > 0) {
+      res.status(200).json(product[0]);
+    } else {
+      res.status(404).json({ error: 'product not found' });
+    }
+  } catch (err) {
+    console.error('Error fetching product:', err);
+    res.status(500).json({ error: 'Failed to fetch product' });
+  }
+});
 
 // Create a connection pool
 const pool = mysql.createPool({
@@ -110,7 +138,7 @@ app.post('/company', async (req, res) => {
         console.log('Product details are missing or invalid.');
       }
 
-      // Send back the inserted data
+      // Send back the inserted dataproduct
       const insertedData = {
         id: results.insertId,
         company_id,
@@ -144,15 +172,14 @@ app.post('/employee', async (req, res) => {
     employeeSales,
     employeeLocation,
     storageName,
-    productSold,
-    productAmountSold
+  
   } = req.body;
 
   try {
     // Insert employee into the database
     const [result] = await pool.query(
-      'INSERT INTO employee (employee_id, employee_name, employee_salary, employee_sales, employee_location, storage_name, productSold, productAmountSold) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [employeeId, employeeName, employeeSalary, employeeSales, employeeLocation, storageName, productSold, productAmountSold]
+      'INSERT INTO employee (employee_id, employee_name, employee_salary, employee_sales, employee_location, storage_name) VALUES (?, ?, ?, ?, ?, ?)',
+      [employeeId, employeeName, employeeSalary, employeeSales, employeeLocation, storageName]
     );
 
     res.status(201).json({ message: 'Employee added successfully', id: result.insertId });
@@ -162,6 +189,93 @@ app.post('/employee', async (req, res) => {
   }
 });
 
+app.post('/sales', async (req, res) => {
+  const {
+     sale_id,
+employee_id,
+product_id,
+company_id,
+sale_amount,
+product_amount,
+employee_salary,
+product_price,
+
+  
+  } = req.body;
+
+  try {
+    // Insert employee into the database
+    const [result] = await pool.query(
+      `INSERT INTO sales (
+
+employee_id,
+product_id,
+company_id,
+sale_amount,
+product_amount,
+employee_salary,
+product_price) VALUES ( ?, ?, ?, ?, ?,?,?)`,
+      [    
+        employee_id,
+        product_id,
+        company_id,
+        sale_amount,
+        //sale_date,
+        product_amount,
+        employee_salary,
+        product_price]
+    );
+
+    res.status(201).json({ message: 'Sale added successfully', id: result.insertId });
+  } catch (err) {
+    console.error('Error adding Sale:', err);
+    res.status(500).json({ error: 'Failed to add Sale' });
+  }
+});
+app.put('/employee/:id', async (req, res) => {
+  const employeeId = req.params.id; // Get the employee ID from the URL
+  const { employeeSalary,employeeSales } = req.body; // Get the new salary from the request body
+  console.log("EL SLARIO"+employeeSalary)
+  try {
+    // Update the employee's salary in the database
+    const [result] = await pool.query(
+
+      'UPDATE employee SET employee_salary= ?,employee_sales = ? WHERE employee_id = ?',
+      [employeeSalary,employeeSales, employeeId]
+    );
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Employee salary updated successfully' });
+    } else {
+      res.status(404).json({ error: 'Employee not found' });
+    }
+  } catch (err) {
+    console.error('Error updating employee salary:', err);
+    res.status(500).json({ error: 'Failed to update employee salary' });
+  }
+});
+app.put('/sales/:id', async (req, res) => {
+  const employeeId = req.params.id; // Get the employee ID from the URL
+  const { employeeSalary,employeeSales } = req.body; // Get the new salary from the request body
+  console.log("EL SALARIO DESDE SALES"+employeeSalary)
+  try {
+    // Update the employee's salary in the database
+    const [result] = await pool.query(
+
+      'UPDATE sales SET employee_salary= ?,sale_amount= ? WHERE employee_id = ?',
+      [employeeSalary,employeeSales, employeeId]
+    );
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Employee salary updated successfully' });
+    } else {
+      res.status(404).json({ error: 'Employee not found' });
+    }
+  } catch (err) {
+    console.error('Error updating employee salary:', err);
+    res.status(500).json({ error: 'Failed to update employee salary' });
+  }
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
