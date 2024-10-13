@@ -232,6 +232,38 @@ product_price) VALUES ( ?, ?, ?, ?, ?,?,?)`,
     res.status(500).json({ error: 'Failed to add Sale' });
   }
 });
+
+// POST to users
+app.post('/users', async (req, res) => {
+  const {
+    name,
+    email,
+    password
+
+  
+  } = req.body;
+
+  try {
+    // Insert users into the database
+    const [result] = await pool.query(
+      `INSERT INTO users (
+
+        name,
+        email,
+        password) VALUES ( ?, ?, ?)`,
+      [    
+        name,
+        email,
+        password]
+    );
+
+    res.status(201).json({ message: 'User added successfully', id: result.insertId });
+  } catch (err) {
+    console.error('Error adding user:', err);
+    res.status(500).json({ error: 'Failed to add user' });
+  }
+});
+
 app.put('/employee/:id', async (req, res) => {
   const employeeId = req.params.id; // Get the employee ID from the URL
   const { employeeSalary,employeeSales } = req.body; // Get the new salary from the request body
@@ -257,7 +289,7 @@ app.put('/employee/:id', async (req, res) => {
 app.put('/sales/:id', async (req, res) => {
   const employeeId = req.params.id; // Get the employee ID from the URL
   const { employeeSalary,employeeSales } = req.body; // Get the new salary from the request body
-  console.log("EL SALARIO DESDE SALES"+employeeSalary)
+  console.log("The salary after the sale"+employeeSalary)
   try {
     // Update the employee's salary in the database
     const [result] = await pool.query(

@@ -1,4 +1,4 @@
-import { Storage } from '../Storage.js'; // Ensure correct path and file extension
+import { Storage } from '../Model/Storage.js'; // Ensure correct path and file extension
 
 export class Product extends Storage {
     constructor(company_id, company_name,company_desc,storageName, locationName, locationAddress, facilities, productName, productId, productPrice, productAmount) {

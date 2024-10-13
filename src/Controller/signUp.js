@@ -24,7 +24,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
         if (response.ok) {
             const result = await response.json();
             alert(result.message); // Show success message
-            window.location.href = 'login.html'; // Redirect to login page after successful sign-up
+            window.location.href = 'signIn.html'; // Redirect to login page after successful sign-up
         } else {
             alert('Sign-up failed');
         }

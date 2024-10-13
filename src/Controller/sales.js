@@ -1,3 +1,6 @@
+import { Product } from "../Model/Product";
+
+const prod = new Product()
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('salesForm'); // Ensure the form ID matches
 
