@@ -3,17 +3,19 @@ import { Storage } from "../Model/Storage.js"
 
 export class Employee extends Storage  {
 
-empName=''
-emp_id=null
-salary=Number
-bonus=Number
+  empName
+  emp_id
+  salary
+  bonus
 
 
+constructor(empName, emp_id, salary, bonus, storageName,storageId,storageAddress, locationName, locationAddress, facilities){
+    super(storageName,storageId,storageAddress, locationName, locationAddress, facilities)
 
-constructor(){
-    super()
-
-
+    empName=''
+    emp_id=null
+    salary=Number
+    bonus=Number
 }
 
 setSales(product,location,amount,price){

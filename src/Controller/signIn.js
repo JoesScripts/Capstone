@@ -23,9 +23,12 @@ const fetchUsers = async () => {
             }
         });
 
+        console.log("Before if")
+        
         if (response.ok) {
             const users = await response.json();
             // Do something with the users if needed
+            console.log(users)
         } else {
             console.error('Failed to fetch users');
         }

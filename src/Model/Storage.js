@@ -1,7 +1,7 @@
 import { Inventory } from "../Model/Inventory.js";
 
 export class Storage extends Inventory {
-    constructor(company_id, companyAddress, company_name,company_desc,storageName,storageId,storageAddress, locationName, locationAddress, facilities) {
+    constructor(company_id, company_name,company_desc,storageName,storageId,storageAddress, locationName, locationAddress, facilities) {
         super( company_id, company_name,company_desc)
         this._storageName = storageName;
         this._storageId=storageId;

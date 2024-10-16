@@ -1,0 +1,13 @@
+body {
+    background-image: url('../Assets/images/invPic.jpeg');
+    background-size: cover;  
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
+    margin: 0; 
+    overflow: hidden;
+}
+.custom-card {
+    max-height: 80vh; 
+    overflow-y: auto; 
+}

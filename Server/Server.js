@@ -26,6 +26,33 @@ app.get('/sales', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch sales' });
   }
 });
+// GET users
+app.get('/users', async (req, res) => {
+  try {
+    // Retrieve all employees from the database
+    const [users] = await pool.query('SELECT * FROM users');
+    
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
+// Get all products
+app.get('/product', async (req, res) => {
+  try {
+    // Retrieve all users from the database
+    const [product] = await pool.query('SELECT * FROM product');
+    
+    res.status(200).json(product);
+  } catch (err) {
+    console.error('Error fetching product:', err);
+    res.status(500).json({ error: 'Failed to fetch product' });
+  }
+});
+
+
 // Get all employees
 app.get('/employee', async (req, res) => {
   try {
