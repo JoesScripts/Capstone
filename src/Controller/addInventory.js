@@ -37,7 +37,7 @@ async function fetchAllProducts() {
 
         if (response.ok) {
             const product = await response.json();
-            console.log("Product", product);
+            return product
         } else {
             console.error('Failed to fetch product');
         }
@@ -46,7 +46,7 @@ async function fetchAllProducts() {
     }
 }
 const product=fetchAllProducts()
-console.log(product.product)
+console.log(product)
 
 // Function to update the HTML with company data
 function displayCompany(company) {
@@ -61,7 +61,7 @@ function displayCompany(company) {
         <li>
             <p><strong>ID:</strong> ${company.company_id}</p>
             <p><strong>Company Name:</strong> ${company.company_name}</p>
-            <p><strong>Product:</strong> Apple </p>
+            <p><strong>Product:</strong> ${product}</p>
             <p><strong>Storage: </strong> ${company.storageName}</p>
             <p><strong>Location:</strong> ${company.locationName}</p>
             <p><strong>Storage Address: </strong> ${company.locationAddress}</p>
