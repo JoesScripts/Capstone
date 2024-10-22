@@ -3,41 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('generateReport').addEventListener('click', generateCompanyReport); // Button to generate report
 });
 
-let isExpired=false
+function getExpirationDate(exp) {
+    // Expiration date set by the user
+    let expirationDate = exp;
+    // Real month now
+    let monthNow = new Date().getMonth() + 1;
+    // Real year now
+    let yearNow = new Date().getFullYear();
 
-function getExpirationDate(exp)
-{
-// Expiration date set by the user
-let expirationDate = exp
-// Real month now
-let monthNow = new Date().getMonth() +1;
-// Real year now
-let yearNow = new Date().getFullYear();
+    // Amount of months left to expire
+    let expirationWindow = 3;
 
-//Amount of month left to expire
-let expirationWindow = 3
+    // Removal of / and set to an array => ["07","22","2024"]
+    const strNew = expirationDate.split("-");
 
-//Removal of / and set to an array => ["07","22","2024"]
-const strNew = expirationDate.split("-")
+    // Extracting the value of the position in array where month and year are
+    let month = parseInt(strNew[1]);
+    let year = parseInt(strNew[0]);
 
-//extracting the value of the position in array where months and  year are
-let month = parseInt(strNew[1]);
-let year = parseInt(strNew[0]);
-
-// compare expiring year with current year && 3 month left to match expiration month
-if (year == yearNow && month + expirationWindow >= monthNow) {
-    console.log("expired")
-    isExpired=true
-}
-else {
-    console.log("not expired")
-    isExpired=false
-
+    // Compare expiring year with current year && 3 months left to match expiration month
+    return year == yearNow && month + expirationWindow >= monthNow;
 }
 
-console.log(strNew[0])
-}
-// Function to fetch all company
+// Function to fetch all employees (company data in this context)
 async function fetchAllEmployees() {
     try {
         const response = await fetch('http://localhost:3000/company', {
@@ -49,7 +37,6 @@ async function fetchAllEmployees() {
 
         if (response.ok) {
             const company = await response.json();
-            company.forEach((c)=> getExpirationDate(c.expirationDate))
             displayCompany(company); // Update the HTML with company data
             window.companyData = company; // Store fetched company data for later use
         } else {
@@ -60,7 +47,7 @@ async function fetchAllEmployees() {
     }
 }
 
-// fetch all products
+// Fetch all products
 async function fetchAllProducts() {
     try {
         const response = await fetch('http://localhost:3000/product', {
@@ -72,7 +59,7 @@ async function fetchAllProducts() {
 
         if (response.ok) {
             const product = await response.json();
-            return product
+            return product;
         } else {
             console.error('Failed to fetch product');
         }
@@ -80,8 +67,8 @@ async function fetchAllProducts() {
         console.error('Error fetching product:', error);
     }
 }
-const product=fetchAllProducts()
-console.log(product)
+const product = fetchAllProducts();
+console.log(product);
 
 // Function to update the HTML with company data
 function displayCompany(company) {
@@ -89,11 +76,15 @@ function displayCompany(company) {
     companyList.innerHTML = ''; // Clear existing content
 
     // Create HTML content from the company data
-    company.forEach(company => { console.log(company)
+    company.forEach(company => {
+        // Check if this company is expired
+        let isExpired = getExpirationDate(company.expirationDate);
+
         const companyItem = document.createElement('div');
         companyItem.innerHTML = `
         <ul>
         <li>
+            <p style="color: red">${isExpired ? '<strong>To expire soon</strong>' : ''}</p>
             <p><strong>ID:</strong> ${company.company_id}</p>
             <p><strong>Company Name:</strong> ${company.company_name}</p>
             <p><strong>Product:</strong> ${product}</p>
@@ -102,11 +93,11 @@ function displayCompany(company) {
             <p><strong>Storage Address: </strong> ${company.locationAddress}</p>
             <p><strong>Facilities:</strong> ${company.facilities}</p>
             <p><strong>Expiration date:</strong> ${company.expirationDate}</p>
-            </li>
-            </ul>
-            <br>
-            <Hr>
-            <br>
+        </li>
+        </ul>
+        <br>
+        <hr>
+        <br>
         `;
        
         companyList.appendChild(companyItem);
