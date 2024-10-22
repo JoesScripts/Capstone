@@ -3,6 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('generateReport').addEventListener('click', generateCompanyReport); // Button to generate report
 });
 
+let isExpired=false
+
+function getExpirationDate(exp)
+{
+// Expiration date set by the user
+let expirationDate = exp
+// Real month now
+let monthNow = new Date().getMonth() +1;
+// Real year now
+let yearNow = new Date().getFullYear();
+
+//Amount of month left to expire
+let expirationWindow = 3
+
+//Removal of / and set to an array => ["07","22","2024"]
+const strNew = expirationDate.split("-")
+
+//extracting the value of the position in array where months and  year are
+let month = parseInt(strNew[1]);
+let year = parseInt(strNew[0]);
+
+// compare expiring year with current year && 3 month left to match expiration month
+if (year == yearNow && month + expirationWindow >= monthNow) {
+    console.log("expired")
+    isExpired=true
+}
+else {
+    console.log("not expired")
+    isExpired=false
+
+}
+
+console.log(strNew[0])
+}
 // Function to fetch all company
 async function fetchAllEmployees() {
     try {
@@ -15,6 +49,7 @@ async function fetchAllEmployees() {
 
         if (response.ok) {
             const company = await response.json();
+            company.forEach((c)=> getExpirationDate(c.expirationDate))
             displayCompany(company); // Update the HTML with company data
             window.companyData = company; // Store fetched company data for later use
         } else {
@@ -65,7 +100,8 @@ function displayCompany(company) {
             <p><strong>Storage: </strong> ${company.storageName}</p>
             <p><strong>Location:</strong> ${company.locationName}</p>
             <p><strong>Storage Address: </strong> ${company.locationAddress}</p>
-            <p><strong>Product sold:</strong> ${company.facilities}</p>
+            <p><strong>Facilities:</strong> ${company.facilities}</p>
+            <p><strong>Expiration date:</strong> ${company.expirationDate}</p>
             </li>
             </ul>
             <br>
