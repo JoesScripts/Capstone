@@ -1,4 +1,11 @@
+import { Inventory } from "../Model/Inventory.js";
+import { Product } from "../Model/Product.js";
+import { Storage } from "../Model/Storage.js";
+
 document.addEventListener('DOMContentLoaded', () => {
+    const inventory= new Inventory()
+    const product= new Product()
+    const storage= new Storage()
     const form = document.getElementById('companyForm'); // Ensure the form ID matches
 
     form.addEventListener('submit', async (event) => {
@@ -6,32 +13,40 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Get values from input
         const companyName = document.getElementById('companyName').value;
+        inventory.setCompanyName(companyName)
         const companyId = document.getElementById('companyId').value;
+        inventory.setCompanyId(companyId)
         const storageName = document.getElementById('storageName').value;
-        const storageId = document.getElementById('storageId').value;
+        storage.setStorageName(storageName)
+        // !todo    const storageId = document.getElementById('storageId').value;
+        // !todo    storage.setStorageId(storageId)
         const storageAddress = document.getElementById('storageAddress').value;
         const storageFacilities = parseInt(document.getElementById('storageFacilities').value, 10); // Parse as int
         const productName = document.getElementById('productName').value;
         const productId = parseInt(document.getElementById('productId').value, 10); // Parse as int
+        product.setProductId(productId)
         const productPrice = parseFloat(document.getElementById('productPrice').value); // Parse as float
+        product.setProductPrice(productPrice)
         const productAmount = parseInt(document.getElementById('productAmount').value, 10); // Parse as int
         const expirationDate = document.getElementById('expirationDate').value
 
         // Prepare company data
         const companyData = {
-            company_id: companyId,
-            company_name: companyName,
+            company_id: inventory.getCompanyId(),
+            company_name: inventory.getCompanyName(),
             company_desc: "A company for testing.",
-            storageName: storageName,
+            storageName: storage.getStorageName(),
             locationName: "Tampa",
             locationAddress: storageAddress, // Use the storageAddress input
             facilities: storageFacilities,
-            productId: productId,
+            productId: product.getProductId(),
             productName: productName,
-            productPrice: productPrice,
+            productPrice: product.getProductPrice(),
             productAmount: productAmount,
             expirationDate: expirationDate
         };
+
+        console.log(inventory)
 
         console.log(companyData); // Log the entire companyData object
 

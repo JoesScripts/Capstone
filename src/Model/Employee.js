@@ -31,8 +31,8 @@ this.salary=s
 getSalary(){
   return this.salary  
 }
-setNamess(n,id,sala){
-  this.empName=n  
+setNames(name){
+  this.empName=name  
 }
 getName(){
     return this.empName

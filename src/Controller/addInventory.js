@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAllEmployees(); // Fetch company data on load
-    document.getElementById('generateReport').addEventListener('click', generateCompanyReport); // Button to generate report
+    fetchInventory(); // Fetch company data on load
+    document.getElementById('generateReport').addEventListener('click', generateInventoryReport); // Button to generate report
 });
 
 function getExpirationDate(exp) {
@@ -26,9 +26,9 @@ function getExpirationDate(exp) {
 }
 
 // Function to fetch all employees (company data in this context)
-async function fetchAllEmployees() {
+async function fetchInventory() {
     try {
-        const response = await fetch('http://localhost:3000/company', {
+        const response = await fetch('http://localhost:3000/inventory', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,63 +36,40 @@ async function fetchAllEmployees() {
         });
 
         if (response.ok) {
-            const company = await response.json();
-            displayCompany(company); // Update the HTML with company data
-            window.companyData = company; // Store fetched company data for later use
+            const inventory = await response.json();
+            displayInventory(inventory); // Update the HTML with inventory data
+            window.inventoryData = inventory; // Store fetched inventory data for later use
         } else {
-            console.error('Failed to fetch company');
+            console.error('Failed to fetch inventory');
         }
     } catch (error) {
-        console.error('Error fetching company:', error);
+        console.error('Error fetching inventory:', error);
     }
 }
 
-// Fetch all products
-async function fetchAllProducts() {
-    try {
-        const response = await fetch('http://localhost:3000/product', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+// Function to update the HTML with Inventory data
+function displayInventory(inventory) {
+    const inventoryList = document.getElementById('inventoryList');
+    inventoryList.innerHTML = ''; // Clear existing content
 
-        if (response.ok) {
-            const product = await response.json();
-            return product;
-        } else {
-            console.error('Failed to fetch product');
-        }
-    } catch (error) {
-        console.error('Error fetching product:', error);
-    }
-}
-const product = fetchAllProducts();
-console.log(product);
+    // Create HTML content from the inventory data
+    inventory.forEach(inventory => {
+        // Check if this inventory is expired
+        let isExpired = getExpirationDate(inventory.expirationDate);
 
-// Function to update the HTML with company data
-function displayCompany(company) {
-    const companyList = document.getElementById('companyList');
-    companyList.innerHTML = ''; // Clear existing content
-
-    // Create HTML content from the company data
-    company.forEach(company => {
-        // Check if this company is expired
-        let isExpired = getExpirationDate(company.expirationDate);
-
-        const companyItem = document.createElement('div');
-        companyItem.innerHTML = `
+        const inventoryItem = document.createElement('div');
+        inventoryItem.innerHTML = `
         <ul>
         <li>
             <p style="color: red">${isExpired ? '<strong>To expire soon</strong>' : ''}</p>
-            <p><strong>ID:</strong> ${company.company_id}</p>
-            <p><strong>Company Name:</strong> ${company.company_name}</p>
-            <p><strong>Product:</strong> ${product}</p>
-            <p><strong>Storage: </strong> ${company.storageName}</p>
-            <p><strong>Location:</strong> ${company.locationName}</p>
-            <p><strong>Storage Address: </strong> ${company.locationAddress}</p>
-            <p><strong>Facilities:</strong> ${company.facilities}</p>
-            <p><strong>Expiration date:</strong> ${company.expirationDate}</p>
+            <p><strong>ID:</strong> ${inventory.company_id}</p>
+            <p><strong>Company Name:</strong> ${inventory.company_name}</p>
+            <p><strong>Product:</strong> ${inventory.product_name}</p>
+            <p><strong>Storage: </strong> ${inventory.storageName}</p>
+            <p><strong>Location:</strong> ${inventory.locationName}</p>
+            <p><strong>Storage Address: </strong> ${inventory.locationAddress}</p>
+            <p><strong>Facilities:</strong> ${inventory.facilities}</p>
+            <p><strong>Expiration date:</strong> ${inventory.expirationDate}</p>
         </li>
         </ul>
         <br>
@@ -100,37 +77,38 @@ function displayCompany(company) {
         <br>
         `;
        
-        companyList.appendChild(companyItem);
+        inventoryList.appendChild(inventoryItem);
     });
 }
 
 // Function to generate a CSV file from the data
-function generateCompanyReport() {
-    if (window.companyData && window.companyData.length) {
-        const csvData = formatCompanyForCSV(window.companyData);
-        generateCSV(csvData, 'company_report.csv'); // Generate CSV
+function generateInventoryReport() {
+    if (window.inventoryData && window.inventoryData.length) {
+        const csvData = formatInventoryForCSV(window.inventoryData);
+        generateCSV(csvData, 'inventory_report.csv'); // Generate CSV
     } else {
-        alert('No company data available to generate report.');
+        alert('No inventory data available to generate report.');
     }
 }
 
-// Function to format company data for CSV
-function formatCompanyForCSV(company) {
+// Function to format Inventory data for CSV
+function formatInventoryForCSV(inventory) {
     const csvArray = [];
 
     // Add header row
-    csvArray.push(['Company ID', 'Company Name', 'Description', 'Storage Name', 'Location Name', 'Location Address', 'Facilities']);
+    csvArray.push(['ID', 'Name', 'Product' ,'Description', 'Storage', 'Location', 'Address', 'Facilities']);
 
     // Add company data
-    company.forEach(company => {
+    inventory.forEach(inventory => {
         csvArray.push([
-            company.company_id,
-            company.company_name,
-            company.company_desc,
-            company.storage_name,
-            company.locationName,
-            company.locationAddress,
-            company.facilities,
+            inventory.company_id,
+            inventory.company_name,
+            inventory.product_name,
+            inventory.company_desc,
+            inventory.storage_name,
+            inventory.locationName,
+            inventory.locationAddress,
+            inventory.facilities,
         ]);
     });
 
@@ -138,7 +116,7 @@ function formatCompanyForCSV(company) {
 }
 
 // Function to generate a CSV file from the data
-function generateCSV(data, filename = 'company_report.csv') {
+function generateCSV(data, filename = 'inventory_report.csv') {
     // Check if data is a two-dimensional array
     if (!Array.isArray(data) || !data.every(Array.isArray)) {
         console.error('Invalid data format for CSV:', data); // Debugging

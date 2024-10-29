@@ -7,45 +7,63 @@ export class Product extends Storage {
         this._productId = productId;
         this._productPrice = productPrice;
         this._productAmount = productAmount;
+        this._productExpirationDate="";
     }
 
     // Setters
-    set productName(value) {
+    setProductName(value) {
+        if(value){
         this._productName = value;
+        }
     }
 
-    set productId(value) {
+    setProductId(value) {
+        if(value){
+
         this._productId = value;
+        }
     }
 
-    set productPrice(value) {
+    setProductPrice(value) {
+        if(value){
+
         this._productPrice = value;
+        }
     }
 
-    set productAmount(value) {
+    setProductAmount(value) {
         if (typeof value !== 'number') {
             throw new TypeError('Product amount must be a number');
         }
         this._productAmount = value;
     }
-
+    /**
+     * @param {any} value
+     */
+    setProductExpirationDate(value) {
+      if(value){
+        this._productExpirationDate = value;
+      }
+    }
     // Getters
-    get productName() {
+    getProductName() {
         return this._productName;
     }
 
-    get productId() {
+    getProductId() {
         return this._productId;
     }
 
-    get productPrice() {
+    getProductPrice() {
         return this._productPrice;
     }
 
-    get productAmount() {
+    getProductAmount() {
         return this._productAmount;
     }
-
+    getProductExpirationDate() {
+        return this.__productExpirationDate;
+    }
     // Method to display product info
     displayProductInfo() {
         try {

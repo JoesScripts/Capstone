@@ -339,3 +339,13 @@ app.put('/sales/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
 });
+
+app.get('/inventory', async (req, res) => {
+  try {
+    const [inventory] = await pool.query('SELECT * FROM inventoryView');
+    res.status(200).json(inventory);
+  } catch (err) {
+    console.error('Error fetching inventory view:', err);
+    res.status(500).json({ error: 'Failed to fetch inventory view' });
+  }
+});

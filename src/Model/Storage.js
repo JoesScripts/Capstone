@@ -13,23 +13,41 @@ export class Storage extends Inventory {
     }
 
     // Setters
+    /**
+     * @param {any} value
+     */
     setStorageName(value) {
         this._storageName = value;
     }
+    /**
+     * @param {any} value
+     */
     setStorageId(value) {
         this._storageId = value;
     }
+    /**
+     * @param {any} value
+     */
     setStorageAddress(value) {
         this._storageAddress = value;
     }
+    /**
+     * @param {any} value
+     */
     setLocationName(value) {
         this._locationName = value;
     }
 
+    /**
+     * @param {any} value
+     */
     setLocationAddress(value) {
         this._locationAddress = value;
     }
 
+    /**
+     * @param {any} value
+     */
     setFacilities(value) {
         if (typeof value !== 'number') {
             throw new TypeError('Facilities must be a number');

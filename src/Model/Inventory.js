@@ -1,5 +1,3 @@
-// staff.js
-
 export class Inventory  {
 
   company_id;
@@ -12,34 +10,39 @@ export class Inventory  {
   }
 
   // Method to interact with the Storage class
-  /**
-   * @param {any} ci
-   */
-  set companyId(ci) {
-    this.companyId=ci
+  
+   
+setCompanyId(ci) {
+
+    this.company_id=ci
+
   }
-      /**
-   * @param {any} cn
-   */
-  set companyName(cn) {
-      this.company_name=cn
-    }    
- 
- /**
-   * @param {any[]} cd
-   */
- set companyDesc(cd) {
-      this.company_desc=cd
-    }
-  // Setters
+      
+   
+setCompanyName(cn) {
+    this.company_name=cn
+  }    
 
+setCompanyDesc(cd) {
+    this.company_desc=cd
+  }
+// Setters
+getCompanyId() {
+  return this.company_id
+} 
+getCompanyDesc() {
+  return this.company_desc
+} 
+getCompanyName() {
+  return this.company_name
+}
+   // Method to display storage info
+   displayInventoryInfo() {
+    try {
+        if (!this.company_id || !this.company_name ) {
+            throw new Error("Inventory details are incomplete.");
+        }
 
-     // Method to display storage info
-     displayInventoryInfo() {
-      try {
-          if (!this.company_id || !this.company_name ) {
-              throw new Error("Inventory details are incomplete.");
-          }
 
           console.log("Company Details:");
           console.log(`Company ID: ${this.company_id}`);
@@ -47,13 +50,13 @@ export class Inventory  {
           console.log(`Description: ${this.company_desc}`);
 
 
-          //console.log(`Location Address: ${this.company_desc}`);
-        
+          //console.log(Location Address: ${this.company_desc});
+
       } catch (error) {
           console.log(`Error: ${error.message}`);
       }
   }
 
-  
-  
+
+
 }
