@@ -23,12 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const storageAddress = document.getElementById('storageAddress').value;
         const storageFacilities = parseInt(document.getElementById('storageFacilities').value, 10); // Parse as int
         const productName = document.getElementById('productName').value;
+        product.setProductName(productName)
         const productId = parseInt(document.getElementById('productId').value, 10); // Parse as int
         product.setProductId(productId)
         const productPrice = parseFloat(document.getElementById('productPrice').value); // Parse as float
         product.setProductPrice(productPrice)
         const productAmount = parseInt(document.getElementById('productAmount').value, 10); // Parse as int
+        product.setProductAmount(productAmount)
         const expirationDate = document.getElementById('expirationDate').value
+        product.setProductExpirationDate(expirationDate)
 
         // Prepare company data
         const companyData = {
@@ -40,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             locationAddress: storageAddress, // Use the storageAddress input
             facilities: storageFacilities,
             productId: product.getProductId(),
-            productName: productName,
+            productName: product.getProductName(),
             productPrice: product.getProductPrice(),
-            productAmount: productAmount,
-            expirationDate: expirationDate
+            productAmount: product.getproductAmount(),
+            expirationDate: product.getProductExpirationDate()
         };
 
         console.log(inventory)

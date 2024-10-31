@@ -1,4 +1,4 @@
-import { Product } from "../Model/Product";
+import { Product } from "../Model/Product.js";
 
 const prod = new Product()
 document.addEventListener('DOMContentLoaded', () => {
