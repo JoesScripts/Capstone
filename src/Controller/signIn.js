@@ -23,7 +23,7 @@ const fetchUsers = async () => {
             }
         });
 
-        console.log("Before if")
+        
         
         if (response.ok) {
             const users = await response.json();

@@ -39,6 +39,18 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.get('/inventoryView', async (req, res) => {
+  try {
+    // Retrieve all employees from the database
+    const [users] = await pool.query('SELECT * FROM inventoryView');
+    
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching inventoryView:', err);
+    res.status(500).json({ error: 'Failed to fetch inventoryView' });
+  }
+});
+
 // Get all products
 app.get('/product', async (req, res) => {
   try {

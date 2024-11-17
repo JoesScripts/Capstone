@@ -28,7 +28,7 @@ function getExpirationDate(exp) {
 // Function to fetch all employees (company data in this context)
 async function fetchInventory() {
     try {
-        const response = await fetch('http://localhost:3000/inventory', {
+        const response = await fetch('http://localhost:3000/inventoryView', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,6 +37,7 @@ async function fetchInventory() {
 
         if (response.ok) {
             const inventory = await response.json();
+            console.log("INVENTORY :"+inventory.company_name)
             displayInventory(inventory); // Update the HTML with inventory data
             window.inventoryData = inventory; // Store fetched inventory data for later use
         } else {

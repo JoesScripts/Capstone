@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // !todo    storage.setStorageId(storageId)
         const storageAddress = document.getElementById('storageAddress').value;
         const storageFacilities = parseInt(document.getElementById('storageFacilities').value, 10); // Parse as int
+
         const productName = document.getElementById('productName').value;
         product.setProductName(productName)
         const productId = parseInt(document.getElementById('productId').value, 10); // Parse as int
@@ -45,8 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
             productId: product.getProductId(),
             productName: product.getProductName(),
             productPrice: product.getProductPrice(),
-            productAmount: product.getproductAmount(),
-            expirationDate: product.getProductExpirationDate()
+            productAmount: product.getProductAmount(),
+            
+            // do not use classes if this doesn't work
+            expirationDate: expirationDate
         };
 
         console.log(inventory)
